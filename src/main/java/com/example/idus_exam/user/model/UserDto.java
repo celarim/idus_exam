@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UserDto {
 
     @Getter
@@ -72,6 +76,30 @@ public class UserDto {
                     .nickname(user.getNickname())
                     .gender(user.getGender())
                     .build();
+        }
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OrdersResponse {
+        private Long idx;
+        private String orderNumber;
+        private String productName;
+        private LocalDateTime orderDate;
+
+        public static OrdersResponse from(Orders orders) {
+            return OrdersResponse.builder()
+                    .idx(orders.getIdx())
+                    .orderNumber(orders.getOrderNumber())
+                    .productName(orders.getProductName())
+                    .orderDate(orders.getOrderDate())
+                    .build();
+        }
+
+        public static List<OrdersResponse> from(List<Orders> orders) {
+            return orders.stream().map(OrdersResponse::from).collect(Collectors.toList());
         }
     }
 

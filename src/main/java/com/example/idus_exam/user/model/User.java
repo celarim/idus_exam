@@ -1,10 +1,7 @@
 package com.example.idus_exam.user.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,6 +29,8 @@ public class User implements UserDetails {
     private String nickname;
     private String gender;
     private String role;
+    @OneToMany(mappedBy = "user")
+    private List<Orders> ordersList = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

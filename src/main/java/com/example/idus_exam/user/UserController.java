@@ -9,6 +9,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -28,5 +30,12 @@ public class UserController {
     @GetMapping("/detail")
     public ResponseEntity<UserDto.DetailResponse> detail(@AuthenticationPrincipal User user) {
         return userService.getUserDetail(user);
+    }
+
+    @Operation(summary = "유저 주문 목록 조회", description = "ATOKEN을 가지고 있는 유저에게 해당 토큰을 바탕으로 유저의 주문 목록을 전달한다.")
+    @Transactional(readOnly = true)
+    @GetMapping("/orders")
+    public ResponseEntity<List<UserDto.OrdersResponse>> orders(@AuthenticationPrincipal User user) {
+        return userService.getUserOrders(user);
     }
 }
