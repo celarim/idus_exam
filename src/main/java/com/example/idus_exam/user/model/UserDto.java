@@ -103,5 +103,47 @@ public class UserDto {
         }
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserListResponse {
+        private Long idx;
+        private String name;
+        private String email;
+        private String phoneNumber;
+        private String nickname;
+        private String gender;
+        private OrdersResponse lastOrder;
+        public static UserListResponse from(User user) {
+            List<Orders> ordersList = user.getOrdersList();
+            Orders last = null;
+            OrdersResponse lastOrder = null;
+            if(!ordersList.isEmpty()) {
+                last = ordersList.get(0);
+                for(Orders order : ordersList) {
+                    if(order.getOrderDate().isAfter(last.getOrderDate())) {
+                        last = order;
+                    }
+                }
+                lastOrder = OrdersResponse.from(last);
+            }
+
+            return UserListResponse.builder()
+                    .idx(user.getIdx())
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .phoneNumber(user.getPhoneNumber())
+                    .nickname(user.getNickname())
+                    .gender(user.getGender())
+                    .lastOrder(lastOrder)
+                    .build();
+        }
+
+        public static List<UserListResponse> from(List<User> users) {
+            return users.stream().map(UserListResponse::from).collect(Collectors.toList());
+        }
+    }
+
 
 }
