@@ -1,6 +1,5 @@
 package com.example.idus_exam.user;
 
-import com.example.idus_exam.user.model.User;
 import com.example.idus_exam.user.model.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
