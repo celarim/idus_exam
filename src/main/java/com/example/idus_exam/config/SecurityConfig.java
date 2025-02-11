@@ -32,7 +32,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(
                 (auth) ->auth
-                        .requestMatchers("/user/detail").hasRole("USER")
+                        .requestMatchers("/user/detail", "/user/orders").hasRole("USER")
                         .anyRequest().permitAll()
         );
         http.addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
