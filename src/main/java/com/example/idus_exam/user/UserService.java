@@ -4,7 +4,6 @@ import com.example.idus_exam.user.model.Orders;
 import com.example.idus_exam.user.model.User;
 import com.example.idus_exam.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -48,20 +47,20 @@ public class UserService implements UserDetailsService {
     }
 
     //유저 목록
-    public ResponseEntity<List<UserDto.UserListResponse>> getUserList(int page, int size) {
+    public ResponseEntity<UserDto.UserListResponse> getUserList(int page, int size) {
         Page<User> users = userRepository.findAll(PageRequest.of(page, size));
-        return ResponseEntity.ok(UserDto.UserListResponse.from(users.getContent()));
+        return ResponseEntity.ok(UserDto.UserListResponse.from(users));
     }
 
     //유저 목록 이메일로
-    public ResponseEntity<List<UserDto.UserListResponse>> getUserListByEmail(int  page, int size, String email) {
+    public ResponseEntity<UserDto.UserListResponse> getUserListByEmail(int  page, int size, String email) {
         Page<User> users = userRepository.findAllByEmailContaining(PageRequest.of(page, size), email);
-        return ResponseEntity.ok(UserDto.UserListResponse.from(users.getContent()));
+        return ResponseEntity.ok(UserDto.UserListResponse.from(users));
     }
 
     //유저 목록 이름으로
-    public ResponseEntity<List<UserDto.UserListResponse>> getUserListByName(int  page, int size, String name) {
+    public ResponseEntity<UserDto.UserListResponse> getUserListByName(int  page, int size, String name) {
         Page<User> users = userRepository.findAllByNameContaining(PageRequest.of(page, size), name);
-        return ResponseEntity.ok(UserDto.UserListResponse.from(users.getContent()));
+        return ResponseEntity.ok(UserDto.UserListResponse.from(users));
     }
 }
