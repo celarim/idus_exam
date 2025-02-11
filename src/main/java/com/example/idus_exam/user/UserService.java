@@ -17,10 +17,10 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-    public ResponseEntity<String> signup(UserDto.SignupDto dto) {
+    public ResponseEntity<String> signup(UserDto.SignupRequest dto) {
         User user = dto.toEntity();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
