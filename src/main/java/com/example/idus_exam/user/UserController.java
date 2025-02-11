@@ -19,7 +19,7 @@ public class UserController {
     @Operation(summary = "회원 가입", description = "이름, 별명, 비밀번호, 전화번호, 이메일, 성별을 입력받아 회원 가입한다.")
     @Transactional
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody UserDto.SignupDto userDto) {
-        return userService.signup(userDto);
+    public ResponseEntity<String> signup(@RequestBody UserDto.SignupRequest dto) {
+        return userService.signup(dto);
     }
 }
