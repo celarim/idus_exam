@@ -1,5 +1,5 @@
 ---
-name: 이슈 템플릿
+name: Simple Issue Template
 about: Describe this issue template's purpose here.
 title: ''
 labels: ''
