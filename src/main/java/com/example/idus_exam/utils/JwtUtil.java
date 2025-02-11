@@ -5,12 +5,26 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class JwtUtil {
-    private static final String SECRET = "abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789";
-    private static final int EXP = 30 * 60 * 1000;
+    @Value("${jwt.secret}")
+    private String secret;
+    private static String SECRET;
+    @Value("${jwt.exp}")
+    private int exp;
+    private static int EXP;
+
+    @PostConstruct
+    public void init() {
+        SECRET = secret;
+        EXP = exp;
+    }
 
     public static String generateToken(User user) {
         Claims claims = Jwts.claims();
