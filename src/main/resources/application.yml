@@ -22,4 +22,7 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
     org.springframework.security: DEBUG
+jwt:
+  secret: ${JWT_SECRET}
+  exp: ${JWT_EXP}
 
