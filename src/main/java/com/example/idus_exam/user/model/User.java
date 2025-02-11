@@ -5,9 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,6 +13,8 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Setter
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String password;
     private String phoneNumber;
     private String nickname;
-    private String sex;
+    private String gender;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
