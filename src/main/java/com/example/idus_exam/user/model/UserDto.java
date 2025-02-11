@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -107,7 +108,7 @@ public class UserDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UserListResponse {
+    public static class UserListInstanceResponse {
         private Long idx;
         private String name;
         private String email;
@@ -115,12 +116,12 @@ public class UserDto {
         private String nickname;
         private String gender;
         private OrdersResponse lastOrder;
-        public static UserListResponse from(User user) {
+
+        public static UserListInstanceResponse from(User user) {
             List<Orders> ordersList = user.getOrdersList();
-            Orders last = null;
             OrdersResponse lastOrder = null;
             if(!ordersList.isEmpty()) {
-                last = ordersList.get(0);
+                Orders last = ordersList.get(0);
                 for(Orders order : ordersList) {
                     if(order.getOrderDate().isAfter(last.getOrderDate())) {
                         last = order;
@@ -129,7 +130,7 @@ public class UserDto {
                 lastOrder = OrdersResponse.from(last);
             }
 
-            return UserListResponse.builder()
+            return UserListInstanceResponse.builder()
                     .idx(user.getIdx())
                     .name(user.getName())
                     .email(user.getEmail())
@@ -140,8 +141,28 @@ public class UserDto {
                     .build();
         }
 
-        public static List<UserListResponse> from(List<User> users) {
-            return users.stream().map(UserListResponse::from).collect(Collectors.toList());
+        public static List<UserListInstanceResponse> from(List<User> users) {
+            return users.stream().map(UserListInstanceResponse::from).collect(Collectors.toList());
+        }
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserListResponse {
+        List<UserListInstanceResponse> users;
+        private Integer totalPages;
+        private Boolean hasNextPage;
+        private Boolean hasPreviousPage;
+
+        public static UserListResponse from(Page<User> users) {
+            return UserListResponse.builder()
+                    .users(UserListInstanceResponse.from(users.getContent()))
+                    .totalPages(users.getTotalPages())
+                    .hasNextPage(users.hasNext())
+                    .hasPreviousPage(users.hasPrevious())
+                    .build();
         }
     }
 

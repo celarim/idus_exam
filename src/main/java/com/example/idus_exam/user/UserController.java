@@ -42,21 +42,21 @@ public class UserController {
     @Operation(summary = "유저 목록 조회", description = "유저 목록을 페이지와 크기를 받아 전달한다")
     @Transactional(readOnly = true)
     @GetMapping("/list")
-    public ResponseEntity<List<UserDto.UserListResponse>> list(int page, int size) {
+    public ResponseEntity<UserDto.UserListResponse> list(int page, int size) {
         return userService.getUserList(page, size);
     }
 
     @Operation(summary = "유저 목록 조회 이메일로 검색", description = "이메일에서 전달받은 것을 포함하는 모든 유저 목록을 페이지와 크기를 받아 전달한다")
     @Transactional(readOnly = true)
     @GetMapping("/list/email")
-    public ResponseEntity<List<UserDto.UserListResponse>> listEmail(int page, int size, String email) {
+    public ResponseEntity<UserDto.UserListResponse> listEmail(int page, int size, String email) {
         return userService.getUserListByEmail(page, size, email);
     }
 
     @Operation(summary = "유저 목록 조회 이름으로 검색", description = "이름에서 전달받은 것을 포함하는 모든 유저 목록을 페이지와 크기를 받아 전달한다")
     @Transactional(readOnly = true)
     @GetMapping("/list/name")
-    public ResponseEntity<List<UserDto.UserListResponse>> listName(int page, int size, String name) {
+    public ResponseEntity<UserDto.UserListResponse> listName(int page, int size, String name) {
         return userService.getUserListByName(page, size, name);
     }
 }
