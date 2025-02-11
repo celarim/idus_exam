@@ -40,11 +40,11 @@ public class UserDto {
         @Schema(example = "qwer1234")
         private String password;
 
-        public static User toEntity(String email, String password) {
-            return User.builder()
-                    .email(email)
-                    .password(password)
-                    .build();
-        }
+//        public static User toEntity(String email, String password) {
+//            return User.builder()
+//                    .email(email)
+//                    .password(password)
+//                    .build();
+//        }
     }
 }

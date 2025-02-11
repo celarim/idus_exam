@@ -1,5 +1,6 @@
 package com.example.idus_exam.config;
 
+import com.example.idus_exam.config.filter.JwtFilter;
 import com.example.idus_exam.config.filter.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ public class SecurityConfig {
                 (auth) ->auth
                         .anyRequest().permitAll()
         );
-//        http.addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterAt(new LoginFilter(configuration.getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

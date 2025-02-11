@@ -40,7 +40,7 @@ public class JwtUtil {
         return true;
     }
 
-    public static User getuser(String token) {
+    public static User getUser(String token) {
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(SECRET)
