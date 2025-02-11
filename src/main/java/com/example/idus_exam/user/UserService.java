@@ -26,4 +26,9 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return ResponseEntity.ok("Signup successful");
     }
+
+    public ResponseEntity<UserDto.DetailResponse> getUserDetail(User user) {
+        User result = userRepository.findById(user.getIdx()).orElseThrow();
+        return ResponseEntity.ok(UserDto.DetailResponse.from(result));
+    }
 }

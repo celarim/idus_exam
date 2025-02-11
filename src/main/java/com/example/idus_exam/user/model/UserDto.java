@@ -1,7 +1,10 @@
 package com.example.idus_exam.user.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class UserDto {
 
@@ -47,4 +50,30 @@ public class UserDto {
 //                    .build();
 //        }
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DetailResponse {
+        private Long idx;
+        private String name;
+        private String email;
+        private String phoneNumber;
+        private String nickname;
+        private String gender;
+
+        public static DetailResponse from(User user) {
+            return DetailResponse.builder()
+                    .idx(user.getIdx())
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .phoneNumber(user.getPhoneNumber())
+                    .nickname(user.getNickname())
+                    .gender(user.getGender())
+                    .build();
+        }
+    }
+
+
 }
