@@ -6,3 +6,8 @@ DB_USER= DB user 이름
 DB_PASSWORD= DB user 비밀번호  
 JWT_SECRET= jwt 토큰 생성 시크릿 키  
 JWT_EXP = jwt 토큰 생성 만료 시각  
+
+
+
+# 테이블 생성 쿼리
+[쿼리문 보러 가기](/src/main/resources/data.sql)
