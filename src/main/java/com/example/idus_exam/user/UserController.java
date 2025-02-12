@@ -3,6 +3,7 @@ package com.example.idus_exam.user;
 import com.example.idus_exam.user.model.User;
 import com.example.idus_exam.user.model.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@Tag(name="유저 기능")
 public class UserController {
     private final UserService userService;
 
